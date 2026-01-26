@@ -1,0 +1,425 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: rgb(12, 14, 18);
+  color: white;
+  overflow: hidden; /* scroll géré par #scroll-container */
+}
+
+/* ================= SCROLL CONTAINER ================= */
+#scroll-container {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  position: relative;
+}
+
+/* Scrollbar invisible */
+#scroll-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+#scroll-container {
+  scrollbar-width: none;
+}
+
+/* ================= INTRO ================= */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgb(25,30,40), rgb(8,10,15));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.intro-text {
+  font-size: 3rem;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: 2.5s ease;
+}
+
+.intro-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.intro-hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ================= HEADER ================= */
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 40px;
+  backdrop-filter: blur(12px);
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 2s ease;
+  z-index: 100;
+}
+
+.nav {
+  display: flex;
+  gap: 40px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+  transition: color 0.4s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: white;
+}
+
+/* ================= PANELS ================= */
+.panel {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+/* ================= IMAGE ================= */
+.image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  transform: scale(1);
+  transition: transform 6s ease;
+}
+
+.image.zoom {
+  transform: scale(1.12);
+}
+
+/* ================= TEXTE ================= */
+.text {
+  width: 40%;
+  padding: 80px;
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: transform 2.5s ease, opacity 2.5s ease;
+  position: relative;
+  z-index: 2;
+  background: rgba(10,15,25,0.45);
+  backdrop-filter: blur(6px);
+}
+
+.text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.text::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: rgba(12,14,18,0.55);
+  backdrop-filter: blur(10px);
+  z-index: -1;
+  border-radius: 8px;
+}
+
+/* ================= CONTENU ================= */
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: rgb(80,140,255);
+}
+
+.summary {
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* ================= EN SAVOIR PLUS ================= */
+.more {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 2s ease, opacity 1.5s ease;
+}
+
+.more.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.more p {
+  margin-top: 15px;
+  line-height: 1.6;
+}
+
+.more-btn {
+  margin-top: 25px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.more-btn:hover {
+  color: white;
+}
+
+/* ================= CONTACT ================= */
+#contact {
+  min-height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+  background: rgb(245,245,245);
+  color: black;
+  padding-top: 110px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: 2s ease;
+}
+
+.contact-title.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================= FORM ================= */
+.contact-form {
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}.contact-form input,
+.contact-form textarea {
+  padding: 15px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #eaeaea;
+  font-size: 0.95rem;
+}
+
+.contact-form textarea {
+  resize: none;
+  min-height: 120px;
+}
+
+.contact-form button {
+  padding: 14px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: rgb(30,30,30);
+  transform: translateY(-2px);
+}
+
+/* ================= CONTACT FOOTER ================= */
+.contact-footer {
+  margin-top: auto;
+  width: 100%;
+  background: linear-gradient(180deg, rgb(14,16,22), rgb(8,10,14));
+  padding: 60px 20px 40px;
+  text-align: center;
+  color: white;
+}
+
+.contact-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: 35px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 22px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.07);
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  transition: transform 0.35s ease, background 0.35s ease;
+}
+
+.contact-link:hover {
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.14);
+}
+
+.contact-link i {
+  font-size: 1.6rem;
+}
+
+.contact-link.whatsapp i { color: #25d366; }
+.contact-link.phone i { color: rgb(80,140,255); }
+.contact-link.gmail i { color: #ea4335; }
+
+.contact-footer-note {
+  opacity: 0.75;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.contact-footer-copy {
+  opacity: 0.4;
+  font-size: 0.8rem;
+}
+
+/* ================= BACK TO TOP ================= */
+#backTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 9999;
+}
+
+#backTop:hover {
+  transform: translateY(-4px);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 900px) {
+  .text {
+    width: 100%;
+    padding: 60px 30px;
+  }
+}
+
+/* ================= WHATSAPP FLOAT ================= */
+#whatsappFloat {
+  position: fixed;
+  right: 22px;
+  bottom: 110px; /* juste au-dessus du bouton retour */
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+
+  z-index: 9999;
+  text-decoration: none;
+
+  transition: all 0.3s ease;
+}
+
+/* Icône */
+#whatsappFloat i {
+  font-size: 26px;
+  color: #ffffff;
+}
+
+/* Hover */
+#whatsappFloat:hover {
+  transform: translateY(-6px) scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  #whatsappFloat {
+    right: 16px;
+    bottom: 100px;
+  }
+}
+
+.reveal span {
+  opacity: 0;
+  display: inline-block;
+  transform: translateY(20px);
+  animation: revealText 0.6s ease forwards;
+}
+
+@keyframes revealText {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#statusBadge {
+  position: fixed;
+  bottom: 110px;
+  right: 22px;
+  background: rgba(0,0,0,0.6);
+  color: #25d366;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+}
